@@ -1,16 +1,187 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>AngularJS Tutorials</title>
-    <link rel="stylesheet" href="vendor/foundation.min.css">
-  </head>
-  <body>
-    
-    <div ng-app="">
-      <input type="text" ng-model="data.message">
-      <h1>{{data.message + " world"}}</h1>
-    </div>
- 
-    <script type="text/javascript" src="vendor/angular.min.js"></script>
-  </body>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="vendor/css/bootstrap.min.css" rel="stylesheet">
+	<link href="src/css/main.css" rel="stylesheet" type="text/css">
+	<link href="vendor/css/modal.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" href="logo-banner.ico">
+	<title>Cedar Hills Service Request Tracking</title>
+</head>
+<body ng-app='RequestTracker'>
+	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation" ng-controller='navbar'>
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">
+					<img src="src/img/logo-banner.png" width="77" height="76" alt="Logo" id="NavLogo">
+					Cedar Hills Service Request Tracking
+				</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li><a href="#newrequest">Report an Issue in Cedar Hills</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a id="login-link" href="#">Login (not implemented)</a></li>
+					<li><a id="logout-link" href="#" style="display:none">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="main row" style="margin-top:60px;margin-left:10px">
+		<div class="col-md-6">
+			<div id="top-block" ng-controller='existingRequests'>
+				<div id="search-block">
+					<div class="input-group">
+						<input type="text" class="form-control" id="search-box" placeholder="Search" ng-model='searchText'>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span id="search" class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+				<div id="request-list-div" class="panel panel-default">
+					<div class="panel-heading">Recent Requests</div>
+					<div class="panel-body2">
+						<div>
+							<ul id="request-list">
+								<li class="request" ng-repeat='request in requests | filter:searchText' request-id='{{request.id}}'>
+									<span class="glyphicon glyphicon-map-marker"></span>
+									<span class="request-title">Issue: {{request.description}}</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="right-container" class="indiv">
+				<div id="map-canvas"></div>
+			</div>
+		</div>
+	</div>
+	
+	<section id="request-popup" class="semantic-content">
+		<div class="popup-inner">
+			<header class="popup-label">
+				<h2 id="login-popup-title">City Request</h2>
+			</header>
+			<div class="popup-content">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Title</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" id="popup-request-title"/>
+						</div>
+					</div>
+					<div class="request-location form-group">
+						<label class="col-sm-2 control-label">Location</label>
+						<div class="col-sm-8">
+							<input id="popup-location" class="form-control" type="text" placeholder="Street Address"/>
+						</div>
+					</div>
+					<div id="edit-priority-div" class="form-group">
+						<label class="col-sm-2 control-label">Priority</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="popup-priority">
+								<option value="high">High</option>
+								<option value="moderate">Moderate</option>
+								<option value="low">Low</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group description-input">
+						<label>Description</label>
+						<textarea id="popup-description" class="form-control"></textarea>
+						</p>
+					</div>
+					<div id="popup-image">
+
+					</div>				
+				</div>
+			</div>
+			<footer>
+				<button class="btn" id="publish">Make Public</button>
+				<!-- These two buttons are never show at the same time -->
+				<button class="btn btn-primary" id="update">Update</button>
+				<button class="btn btn-primary" id="submit">Submit</button>
+			</footer>
+		</div>
+		<a href="#!" id="request-close-button" class="popup-close" title="Close this popup" data-close="Close"
+        data-dismiss="popup">×</a>
+	</section>
+	<section id="login-popup" class="semantic-content">
+		<div class="popup-inner">
+			<header class="popup-label">
+				<h2 id="login-popup-title">Login</h2>
+			</header>
+			<div class="popup-content">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="email" id="login-email" placeholder="email"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-8">
+							<input id="login-password" class="form-control" type="password" placeholder="Password"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer>
+				<button class="btn btn-primary" id="login">Login</button>
+			</footer>
+		</div>
+		<a href="#!" id="login-close-button" class="popup-close" title="Close this popup" data-close="Close"
+        data-dismiss="popup">×</a>
+	</section>
+	
+	<section id="about" class="semantic-content">
+		<div class="popup-inner">
+			<header class="popup-label">
+				<h2 id="login-popup-title">About</h2>
+			</header>
+			<div class="popup-content">
+				<p> Welcome to the Cedar Hills service request tracker! This website allows you to see requests your city is working on.</p>
+				<p> If you register and login, you can submit requests too!</p>
+			</div>
+		</div>
+		<a href="#!" id="login-close-button" class="popup-close" title="Close this popup" data-close="Close"
+        data-dismiss="popup">×</a>
+	</section>
+	
+	<section id="contact" class="semantic-content">
+		<div class="popup-inner">
+			<header class="popup-label">
+				<h2 id="login-popup-title">Contact Us</h2>
+			</header>
+			<div class="popup-content">
+				<p> Call us at (123) 456-7890. </p>
+			</div>
+		</div>
+		<a href="#!" id="login-close-button" class="popup-close" title="Close this popup" data-close="Close"
+        data-dismiss="popup">×</a>
+	</section>
+</body>
+<footer>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="vendor/js/xml2json.min.js"></script>
+	<script src="vendor/js/angular.min.js"></script>
+	<script src="src/js/app.js" type="text/javascript"></script>
+    <script src="src/js/navbar.js" type="text/javascript"></script>
+    <script src="src/js/existingRequests.js" type="text/javascript"></script>
+</footer>
 </html>

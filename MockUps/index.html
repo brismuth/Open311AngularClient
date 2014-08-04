@@ -15,14 +15,14 @@
 			height:32px;
 			top:3px
 		}
-		#issue-list-div{
+		#request-list-div{
 			margin:25px;
 		}
 		li{
 			display:block;
 			margin-bottom:3px;
 		}
-		#issue-popup{
+		#request-popup{
 			position:fixed;
 			margin-left:100px;
 			width:50%;
@@ -31,21 +31,21 @@
 		.close-button{
 			float:right;
 		}
-		.issue{
+		.request{
 			border-bottom: 1px solid #ddd;
 			padding: 4px;
 			cursor: pointer;
 		}
-		.issue-private{
+		.request-private{
 			background: #aaa;
 		}
-		ul#issue-list{
+		ul#request-list{
 			padding: 0px;
 		}
-		#add-new-issue{
+		#add-new-request{
 			top: 4px
 		}
-		.issue-location{
+		.request-location{
 			width:50%;
 
 		}
@@ -72,7 +72,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">City Issue Tracker</a>
+				<a class="navbar-brand" href="#">City Request Tracker</a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
@@ -90,36 +90,36 @@
 					<div id="search" class="glyphicon glyphicon-search btn-group">
 						<input type="text" id="search-box" placeholder=" Search">
 					</div>
-					<div id="add-new-issue" class="btn-group">
+					<div id="add-new-request" class="btn-group">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-							Add new issue <span class="caret"></span>
+							Add new request <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Add new issue...</a></li>
+							<li><a href="#">Add new request...</a></li>
 						</ul>
 					</div>
 				</div>
-				<div id="issue-list-div" class="panel panel-default">
-					<div class="panel-heading">Recent Issues</div>
+				<div id="request-list-div" class="panel panel-default">
+					<div class="panel-heading">Recent Requests</div>
 					<div class="panel-body2">
 						<div>
-							<ul id="issue-list">
-								<li class="issue">
+							<ul id="request-list">
+								<li class="request">
 								<span class="glyphicon glyphicon-map-marker"></span>
-								<span class="issue-title">One</span>
-								<span class="issue-description"> - Some description</span>
+								<span class="request-title">One</span>
+								<span class="request-description"> - Some description</span>
 								<span class="close glyphicon glyphicon-trash"></span>
 								</li>
-								<li class="issue">
+								<li class="request">
 								<span class="glyphicon glyphicon-map-marker"></span>
-								<span class="issue-title">Two</span>
-								<span class="issue-description"> - Some description</span>
+								<span class="request-title">Two</span>
+								<span class="request-description"> - Some description</span>
 								<span class="close glyphicon glyphicon-trash"></span>
 								</li>
-								<li class="issue issue-private">
+								<li class="request request-private">
 								<span class="glyphicon glyphicon-map-marker"></span>
-								<span class="issue-title">Three</span>
-								<span class="issue-description"> - Some description</span>
+								<span class="request-title">Three</span>
+								<span class="request-description"> - Some description</span>
 								<span class="close glyphicon glyphicon-trash"></span>
 								<span class="close glyphicon glyphicon-ok"></span>
 								</li>
@@ -133,15 +133,15 @@
 			</div>
 		</div>
 	</div>
-	<div id="issue-popup" class="panel panel-default" style="display:none">
+	<div id="request-popup" class="panel panel-default" style="display:none">
 		<div class="panel-heading">
-			<span id="issue-popup-title">City Issue</span>
+			<span id="request-popup-title">City Request</span>
 			<span class="close-button"><button class="close">x</button></span>
 		</div>
 		<div class="panel-body">
 			<div>
-				<label>Title:</label><span class="text-field" contenteditable="true">Issue title</span>
-				<div class="issue-location">
+				<label>Title:</label><span class="text-field" contenteditable="true">Request title</span>
+				<div class="request-location">
 					<label> Location Cedar City:</label>
 					<input class="location" type="text"placeholder="Street Address or (longitude,latitude)"/>
 				</div>
@@ -173,24 +173,24 @@
 	<script>
 	
 	$(".close-button").click(function(){
-		$("#issue-popup").hide();
+		$("#request-popup").hide();
 	});
-	$("#add-new-issue").click(function(){
-		$("#issue-popup").show();
+	$("#add-new-request").click(function(){
+		$("#request-popup").show();
 	});
-	$(".issue").click(function(){
-		$("#issue-popup").show();
+	$(".request").click(function(){
+		$("#request-popup").show();
 	});
 	$("#search-box").keypress(function(e){
-		$("#issue-list-div .panel-heading").text("Results");
+		$("#request-list-div .panel-heading").text("Results");
 		var searchString = $("#search-box").val().toLowerCase();
 		if(searchString == ""){
-			$(".issue").show();
-			$("#issue-list-div .panel-heading").text("Recent Issues");
+			$(".request").show();
+			$("#request-list-div .panel-heading").text("Recent Requests");
 		}
 		console.log("searchString",searchString);
-		$(".issue").each(function(){
-			var title = $(this).children(".issue-title").text().toLowerCase();
+		$(".request").each(function(){
+			var title = $(this).children(".request-title").text().toLowerCase();
 			if(title.indexOf(searchString) == -1){
 				$(this).hide();
 			}
