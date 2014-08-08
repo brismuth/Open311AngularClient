@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="app/css/app.css">
     <title ng-bind="$state.current.name + ' - Cedar Hills Issue Tracker'">Cedar Hills Issue Tracker</title>
   </head>
   <body>
@@ -15,7 +16,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" ui-sref="home">Cedar Hills Issue Tracker</a>
+          <a class="navbar-brand" ui-sref="home">
+            <img src="vendor/img/logo-banner.png" width="77" height="76" alt="Logo" id="NavLogo">
+            Cedar Hills Issue Tracker
+          </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -37,9 +41,9 @@
     <script src="vendor/js/angular-ui-router.js"></script>
     <script src="vendor/js/ui-bootstrap-0.11.0.min.js" type="text/javascript"></script>
     <script src="vendor/js/xml2json.min.js"></script>
-    <script src="app/app.js"></script>
-    <script src="app/requests/requests.js"></script>
-    <script src="app/requests/requests-service.js"></script>
+    <script src="app/js/app.js"></script>
+    <script src="app/js/requests.js"></script>
+    <script src="app/js/requests-service.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="vendor/js/bootstrap.min.js"></script>
   </body>

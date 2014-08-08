@@ -1,0 +1,10 @@
+#NavLogo {
+  vertical-align: top;
+  margin-top: -15px;
+  margin-left: -90px;
+  /* background-color: #EFEFD7;remove*/
+}
+
+.navbar-default {
+	background-color: #F3F3E1;
+}

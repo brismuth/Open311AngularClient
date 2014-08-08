@@ -12,7 +12,7 @@ angular.module('open311Client.requests', [
           // abstract - this state is activated by activating one of it's children.
           abstract: true,
           url: '/requests',
-          templateUrl: 'app/requests/requests.html',
+          templateUrl: 'app/templates/requests.html',
 
           // resolve requests before instantiating controller
           resolve: {
@@ -32,7 +32,7 @@ angular.module('open311Client.requests', [
   // request list
         .state('requests.list', {
           url: '',
-          templateUrl: 'app/requests/requests.list.html'
+          templateUrl: 'app/templates/requests.list.html'
         })
 
 
@@ -41,7 +41,7 @@ angular.module('open311Client.requests', [
           url: '/{requestId:[0-9]{1,4}}',
           views: {
             '': {
-              templateUrl: 'app/requests/requests.detail.html',
+              templateUrl: 'app/templates/requests.detail.html',
 
               resolve: {
                 request: ['requests', '$stateParams',
