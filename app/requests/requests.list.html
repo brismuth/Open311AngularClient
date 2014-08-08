@@ -1,0 +1,6 @@
+<h2>All requests</h2>
+<ul>
+  <li ng-repeat="request in recentRequests">
+    <a ui-sref="requests.detail({requestId:request.service_request_id})">{{request.description}}</a>
+  </li>
+</ul>    

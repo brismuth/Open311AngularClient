@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="open311Client">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap.min.css">
+    <script src="vendor/angular-1.2.14/angular.js"></script>
+    <script src="vendor/angular-ui-router.js"></script>
+    <script src="vendor/ui-bootstrap-0.11.0.min.js" type="text/javascript"></script>
+    <script src="vendor/xml2json.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/requests/requests.js"></script>
+    <script src="app/requests/requests-service.js"></script>
+    <title ng-bind="$state.current.name + ' - Cedar Hills Issue Tracker'">Cedar Hills Issue Tracker</title>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner"><div class="container">
+        <a class="brand" ui-sref="home">Cedar Hills Issue Tracker</a>
+        <ul class="nav">
+          <li ng-class="{active: $state.includes('requests')}"><a ui-sref="requests.list">Recent Requests</a></li>
+          <li ui-sref-active="active"><a ui-sref="about">About</a></li>
+        </ul>
+        <p ui-view="hint" class="navbar-text pull-right"></p>
+      </div></div>
+    </div>
+    <!-- main ui-view -->
+    <div ui-view class="container slide" style="padding-top: 80px;"></div>
+    <hr>
+    <pre>
+      <small class="muted">Written by Brian Smith</small>
+    </pre>
+  </body>
+</html>

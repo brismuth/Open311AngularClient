@@ -1,0 +1,12 @@
+<a ui-sref="requests.list">All requests</a>        
+<div>
+  <h2>{{request.name}}</h2>
+  <ul>
+    <li ng-repeat="(key,value) in request">
+      {{key}}: {{value}}
+    </li>
+  </ul>
+  <div ui-view class="slide">
+    <small class="muted">Click on a request item to view and/or edit it.</small>
+  </div>
+</div>
