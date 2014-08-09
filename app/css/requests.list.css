@@ -1,0 +1,22 @@
+#RequestListWrapper {
+	max-width: 400px;
+}
+
+#search-block {
+	display: inline-block;
+	max-width: 400px;
+}
+
+
+.request-list-item {
+	border-bottom: 1px solid #ddd;
+	padding: 13px;
+	cursor: pointer;
+	display:block;
+	margin-bottom:3px;
+}
+
+ul#RequestList {
+	padding: 0px;
+	max-width: 400px; 
+}

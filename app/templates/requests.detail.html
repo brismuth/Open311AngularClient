@@ -1,14 +1,54 @@
 <link rel="stylesheet" type="text/css" href="app/css/requests.detail.css">
 
-<a ui-sref="requests.list">All requests</a>        
-<div id='ShowRequest'>
-  <h2>{{request.name}}</h2>
-  <ul>
-    <li ng-repeat="(key,value) in request">
-      {{key}}: {{value}}
-    </li>
-  </ul>
-  <div ui-view class="slide">
-    <small class="muted">Click on a request item to view and/or edit it.</small>
+<button type="submit" ui-sref="requests.list" class="btn btn-primary">Back to recent requests</button>
+
+<form name="request-form"  class="form-horizontal">
+  <div class="form-group">
+    <label for="inputDescription" class="control-label col-xs-2">Description</label>
+    <div class="col-xs-7">
+      <input class="form-control" id="inputDescription" placeholder="Description" ng-model="request.description" name="description">
+    </div>
   </div>
-</div>
+  <div class="form-group">
+    <label for="inputAddress" class="control-label col-xs-2">Address</label>
+    <div class="col-xs-4">
+      <input class="form-control" id="inputAddress" placeholder="Address" ng-model="request.address" name="address">
+    </div>
+    <label for="inputZipcode" class="control-label col-xs-1">Zipcode</label>
+    <div class="col-xs-2">
+      <input class="form-control" id="inputZipcode" placeholder="Zipcode" ng-model="request.zipcode" name="zipcode">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputLat" class="control-label col-xs-2">Latitude</label>
+    <div class="col-xs-2">
+      <input class="form-control" id="inputLat" placeholder="Latitude" ng-model="request.lat" name="lat">
+    </div>
+    <label for="inputLong" class="control-label col-xs-1">Longitude</label>
+    <div class="col-xs-2">
+      <input class="form-control" id="inputLong" placeholder="Longitude" ng-model="request.long" name="long">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputImage" class="control-label col-xs-2">Upload Image</label>
+    <div class="col-xs-2">
+      <input type="file" id="inputImage">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputSubmittedBy" class="control-label col-xs-2">Submitted By</label>
+    <div class="col-xs-2">
+      <input type="email" class="form-control" id="inputSubmittedBy" placeholder="Email" ng-model="request.email" name="uEmail">
+    </div>
+    <div ng-show="request-form.uEmail.$dirty && request-form.uEmail.$invalid">Invalid:
+      <span ng-show="request-form.uEmail.$error.required">Tell us your email.</span>
+      <span ng-show="request-form.uEmail.$error.email">This is not a valid email.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-offset-2 col-xs-2">
+      <button ng-click="reset()" ng-disabled="isUnchanged(user)"  type="submit" class="btn btn-danger" >Reset</button>
+      <button ng-click="update(user)" ng-disabled="request-form.$invalid || isUnchanged(user)" type="submit" class="btn btn-primary" >Save</button>
+    </div>
+  </div>
+</form>

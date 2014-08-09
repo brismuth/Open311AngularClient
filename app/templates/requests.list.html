@@ -1,6 +1,24 @@
-<h2>All requests</h2>
-<ul>
-  <li ng-repeat="request in recentRequests">
-    <a ui-sref="requests.detail({requestId:request.service_request_id})">{{request.description}}</a>
-  </li>
-</ul>    
+<link rel="stylesheet" type="text/css" href="app/css/requests.list.css">
+
+<div id="search-block">
+	<div class="input-group">
+		<input type="text" class="form-control" id="search-box" placeholder="Search" ng-model='searchText'>
+		<span class="input-group-btn">
+			<button class="btn btn-default" type="button">
+				<span id="search" class="glyphicon glyphicon-search"></span>
+			</button>
+		</span>
+	</div>
+</div>
+
+<div id="RequestListWrapper" class="panel panel-default">
+	<div class="panel-heading">Recent Requests</div>
+	<div class="panel-body2">
+		<ul id="RequestList">
+			<li class="request-list-item" ng-repeat="request in recentRequests | filter:searchText">
+				<span class="glyphicon glyphicon-map-marker"></span>
+				<a ui-sref="requests.detail({requestId:request.service_request_id})">{{request.description}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
