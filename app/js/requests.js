@@ -1,4 +1,4 @@
-angular.module('open311Client.requests', [
+angular.module('open311Client.requests_service', [
   'ui.router',
   'ui.bootstrap'
 ])
@@ -16,9 +16,9 @@ angular.module('open311Client.requests', [
 
           // resolve requests before instantiating controller
           resolve: {
-            recentRequests: ['requests',
-              function( requests){
-                return requests.all();
+            recentRequests: ['requests_service',
+              function(       requests_service){
+                return requests_service.all();
               }]
           },
 
@@ -44,22 +44,29 @@ angular.module('open311Client.requests', [
               templateUrl: 'app/templates/requests.detail.html',
 
               resolve: {
-                request: ['requests', '$stateParams',
-                  function( requests, $stateParams){
-                    return requests.get($stateParams.requestId);
+                request: ['requests_service', '$stateParams',
+                  function( requests_service, $stateParams){
+                    return requests_service.get($stateParams.requestId);
                   }]
               },
 
-              controller: ['$scope', '$stateParams', 'request',
-                function (  $scope,   $stateParams, request) {
+              controller: ['$scope', 'requests_service', 'request',
+                function (  $scope,   requests_service, request) {
                   $scope.request = request;
+
+                  $scope.update = function(request) {
+                    var result = requests_service.post(request);
+                    result.then(function(requestID) {
+                      alert('Saved successfully!', requestID);
+                    });
+                  };
                 }]
             },
 
             'hint@': {
               templateProvider: ['$stateParams',
                 function (        $stateParams) {
-                  return 'You are looking at the details for request ' + $stateParams.requestId;
+                  return 'Your request has been submitted. You may fill out more details or you may now close your browser.';
                 }]
             }
           }

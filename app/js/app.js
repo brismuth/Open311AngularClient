@@ -1,7 +1,7 @@
 // Make sure to include the `ui.router` module as a dependency
 angular.module('open311Client', [
-  'open311Client.requests',
-  'open311Client.requests.service',
+  'open311Client.requests_service',
+  'open311Client.requests_service.service',
   'ui.router',
   'ui.bootstrap'
 ])
@@ -23,16 +23,31 @@ angular.module('open311Client', [
         .otherwise('/');
 
       $stateProvider
-        .state("home", {
-          url: "/",
-          template: 'You will eventually be able to submit issues on this page.'
+        .state('home', {
+          url: '/',
+          views: {
+            '': {
+              templateUrl: 'app/templates/create.html',
+
+              controller: ['$scope', '$state', '$stateParams', 'requests_service',
+                function (  $scope,   $state,   $stateParams,   requests_service) {
+                  $scope.create = function(request) {
+                    var result = requests_service.post(request);
+                    result.then(function(requestID) {
+                      $stateParams.requestId = requestID;
+                      $state.go('requests.detail', $stateParams);
+                    });
+                  };
+                }]
+            }
+          }
         })
 
         .state('about', {
           url: '/about',
           template: '<p class="lead">Cedar Hills Issue Tracking</p>' +
                     '<p>You can use this web application to make service request to the city of Cedar Hills.</p>'
-        })
+        });
     }
   ]
 );
