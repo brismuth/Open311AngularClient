@@ -4,25 +4,29 @@
 
 <form name="request-form"  class="form-horizontal">
   <div class="form-group">
-    <label for="inputDescription" class="control-label col-xs-2">Description</label>
-    <div class="col-xs-7">
-      <input class="form-control" id="inputDescription" placeholder="Description" ng-model="request.description" name="description">
+    <label for="inputServiceCode" class="control-label col-xs-2">Request Type</label>
+    <div class="col-xs-2">
+      <input class="form-control" id="inputServiceCode" disabled ng-model="service_name"> 
+    </div>
+    <label for="inputAddress" class="control-label col-xs-1">Address</label>
+    <div class="col-xs-5">
+      <input class="form-control" id="inputAddress" placeholder="Address" ng-model="request.address">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputAddress" class="control-label col-xs-2">Address</label>
-    <div class="col-xs-7">
-      <input class="form-control" id="inputAddress" placeholder="Address" ng-model="request.address" name="address">
+    <label for="inputDescription" class="control-label col-xs-2">Description</label>
+    <div class="col-xs-8">
+      <input class="form-control" id="inputDescription" placeholder="Description" ng-model="request.description">
     </div>
   </div>
   <div class="form-group">
     <label for="inputLat" class="control-label col-xs-2">Latitude</label>
     <div class="col-xs-2">
-      <input class="form-control" id="inputLat" placeholder="Latitude" ng-model="request.lat" name="lat">
+      <input class="form-control" id="inputLat" placeholder="Latitude" ng-model="request.lat">
     </div>
     <label for="inputLong" class="control-label col-xs-1">Longitude</label>
     <div class="col-xs-2">
-      <input class="form-control" id="inputLong" placeholder="Longitude" ng-model="request.long" name="long">
+      <input class="form-control" id="inputLong" placeholder="Longitude" ng-model="request.long">
     </div>
   </div>
   <div class="form-group">
@@ -34,7 +38,7 @@
   <div class="form-group">
     <label for="inputSubmittedBy" class="control-label col-xs-2">Submitted By</label>
     <div class="col-xs-2">
-      <input type="email" class="form-control" id="inputSubmittedBy" placeholder="Email" ng-model="request.email" name="uEmail">
+      <input type="email" class="form-control" id="inputSubmittedBy" placeholder="Email" ng-model="request.email">
     </div>
     <div ng-show="request-form.uEmail.$dirty && request-form.uEmail.$invalid">Invalid:
       <span ng-show="request-form.uEmail.$error.required">Tell us your email.</span>

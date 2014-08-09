@@ -1,7 +1,8 @@
 // Make sure to include the `ui.router` module as a dependency
 angular.module('open311Client', [
-  'open311Client.requests_service',
-  'open311Client.requests_service.service',
+  'open311Client.requests_utils',
+  'open311Client.requests_utils.service',
+  'open311Client.services_utils.service',
   'ui.router',
   'ui.bootstrap'
 ])
@@ -30,10 +31,28 @@ angular.module('open311Client', [
             '': {
               templateUrl: 'app/templates/create.html',
 
-              controller: ['$scope', '$state', '$stateParams', 'requests_service',
-                function (  $scope,   $state,   $stateParams,   requests_service) {
+              // resolve requests before instantiating controller
+              resolve: {
+                services: ['services_utils',
+                  function( services_utils){
+                    return services_utils.all();
+                  }]
+              },
+
+              controller: ['$scope', '$state', '$stateParams', 'requests_utils', 'services',
+                function (  $scope,   $state,   $stateParams,   requests_utils,   services) {
+                  $scope.services = services;
+
+                  // initialize this so the drop down works okay.
+                  $scope.request = {
+                    service_code: '001'
+                  }
+
                   $scope.create = function(request) {
-                    var result = requests_service.post(request);
+                    request.requested_datetime = new Date().toISOString();
+                    request.status = 'new';
+
+                    var result = requests_utils.post(request);
                     result.then(function(requestID) {
                       $stateParams.requestId = requestID;
                       $state.go('requests.detail', $stateParams);

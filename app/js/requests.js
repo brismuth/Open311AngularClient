@@ -1,4 +1,4 @@
-angular.module('open311Client.requests_service', [
+angular.module('open311Client.requests_utils', [
   'ui.router',
   'ui.bootstrap'
 ])
@@ -17,9 +17,9 @@ angular.module('open311Client.requests_service', [
 
           // resolve requests before instantiating controller
           resolve: {
-            recentRequests: ['requests_service',
-              function(       requests_service){
-                return requests_service.all();
+            recentRequests: ['requests_utils',
+              function(       requests_utils){
+                return requests_utils.all();
               }]
           },
 
@@ -47,18 +47,29 @@ angular.module('open311Client.requests_service', [
               templateUrl: 'app/templates/requests.detail.html',
 
               resolve: {
-                request: ['requests_service', '$stateParams',
-                  function( requests_service, $stateParams){
-                    return requests_service.get($stateParams.requestId);
+                request: ['requests_utils', '$stateParams',
+                  function( requests_utils, $stateParams){
+                    return requests_utils.get($stateParams.requestId);
+                  }],
+                services: ['services_utils',
+                  function( services_utils){
+                    return services_utils.all();
                   }]
               },
 
-              controller: ['$scope', 'requests_service', 'request',
-                function (  $scope,   requests_service, request) {
+              controller: ['$scope', 'requests_utils', 'request', 'services',
+                function (  $scope,   requests_utils,   request,   services) {
+                  for (var s = 0; s < services.length; s++) {
+                    if (request.service_code == services[s].service_code) {
+                      $scope.service_name = services[s].service_name;
+                    }
+                  }
+
                   $scope.request = request;
 
                   $scope.update = function(request) {
-                    var result = requests_service.post(request);
+                    request.expected_datetime = new Date().toISOString();
+                    var result = requests_utils.post(request);
                     result.then(function(requestID) {
                       alert('Saved successfully!', requestID);
                     });

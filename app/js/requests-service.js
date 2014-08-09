@@ -1,9 +1,9 @@
-angular.module('open311Client.requests_service.service', [
+angular.module('open311Client.requests_utils.service', [
 
 ])
 
 // A RESTful factory for retreiving service requests 
-.factory('requests_service', ['$http', '$q', 
+.factory('requests_utils', ['$http', '$q', 
                      function ($http,   $q) {
 
   var baseUrl = 'http://311.zappala.org/requests';
@@ -29,6 +29,7 @@ angular.module('open311Client.requests_service.service', [
   };
 
   factory.post = function(request) {
+    console.log(request);
     var params = {
       api_key: api_key,
       service_code: request.service_code,
@@ -41,7 +42,9 @@ angular.module('open311Client.requests_service.service', [
     if (request.description) params.description = request.description;
     if (request.lat) params.lat = request.lat;
     if (request.long) params.long = request.long;
-    if (request.zip_code) params.zip_code = request.zip_code;
+    if (request.expected_datetime) params.expected_datetime = request.expected_datetime;
+    request.updated_datetime = new Date().toISOString();
+
 
     var result = $q.defer();
 
@@ -53,7 +56,6 @@ angular.module('open311Client.requests_service.service', [
     }).success(function (data) {
       var x2js = new X2JS();
       var ans = x2js.xml_str2json( data ).service_requests.request;
-      console.log(ans);
       result.resolve(ans.service_request_id);
     });
 
