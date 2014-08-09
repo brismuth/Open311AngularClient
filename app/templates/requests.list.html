@@ -17,7 +17,7 @@
 		<ul id="RequestList">
 			<li class="request-list-item" ng-repeat="request in recentRequests | filter:searchText">
 				<span class="glyphicon glyphicon-map-marker"></span>
-				<a ui-sref="requests.detail({requestId:request.service_request_id})">{{request.description}}</a>
+				<a ui-sref="requests.detail({requestId:request.service_request_id})">{{request.description}} <br>Address - {{request.address}}</a>
 			</li>
 		</ul>
 	</div>
