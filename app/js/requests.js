@@ -9,6 +9,7 @@ angular.module('open311Client.requests_service', [
       $stateProvider
   // requests   
         .state('requests', {
+          title: 'Recent Requests',
           // abstract - this state is activated by activating one of it's children.
           abstract: true,
           url: '/requests',
@@ -31,6 +32,7 @@ angular.module('open311Client.requests_service', [
 
   // request list
         .state('requests.list', {
+          title: 'Recent Requests',
           url: '',
           templateUrl: 'app/templates/requests.list.html'
         })
@@ -38,6 +40,7 @@ angular.module('open311Client.requests_service', [
 
   // request details
         .state('requests.detail', {
+          title: 'Viewing Request',
           url: '/{requestId:[0-9]{1,4}}',
           views: {
             '': {

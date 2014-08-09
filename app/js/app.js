@@ -24,6 +24,7 @@ angular.module('open311Client', [
 
       $stateProvider
         .state('home', {
+          title: 'Home',
           url: '/',
           views: {
             '': {
@@ -44,6 +45,7 @@ angular.module('open311Client', [
         })
 
         .state('about', {
+          title: 'About',
           url: '/about',
           template: '<p class="lead">Cedar Hills Issue Tracking</p>' +
                     '<p>You can use this web application to make service request to the city of Cedar Hills.</p>'
