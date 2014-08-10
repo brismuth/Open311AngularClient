@@ -8,6 +8,9 @@
 }
 
 #UploadedImage {
-	max-width: 400px;
-	max-height: 400px;
+}
+
+.form-horizontal .form-group {
+	margin-left: 0px;
+	margin-right: 0px;
 }
