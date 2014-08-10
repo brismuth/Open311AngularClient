@@ -66,29 +66,16 @@ angular.module('open311Client.requests_utils', [
                     }
                   }
 
-                  $scope.statuses = [
-                    'unknown',
-                    'new',
-                    'open',
-                    'closed',
-                    'investigating',
-                    'planned',
-                    'in progress',
-                    'fixed',
-                    'fixed - user',
-                    'fixed - council'
-                  ];
+                  $scope.statuses = requests_utils.statuses;
 
                   // we need to send it as the string, but they send it to us as the key for some reason.
                   request.status = $scope.statuses[request.status];
                   $scope.request = request;
 
                   // date pickers
-                  $scope.today = new Date();
                   $scope.open = function($event) {
                     $event.preventDefault();
                     $event.stopPropagation();
-
                     $scope.opened = true;
                   };
                   // end date pickers
@@ -113,16 +100,27 @@ angular.module('open311Client.requests_utils', [
                   // end image upload
 
                   $scope.update = function(request, includeAdminSection) {
-                    request.expected_datetime = new Date().toISOString();
+                    // we'll ignore these fields
+                    if (!includeAdminSection) {
+                      delete request.status;
+                      delete request.expected_datetime;
+                    }
+
+                    // format it for the server
+                    request.expected_datetime = new Date(request.expected_datetime).toISOString();
+
                     var result = requests_utils.post(request);
                     result.then(function(requestID) {
-                      console.log("Saved");
+                      $scope.reset(); // now that the data is uploaded
                       $stateParams.hint = 'Saved successfully! ' + new Date();
                     });
                   };
 
                   $scope.reset = function() {
-                    console.log($stateParams);
+                    requests_utils.get($stateParams.requestId).then(function(updated_request){
+                      updated_request.status = $scope.statuses[updated_request.status];
+                      $scope.request = updated_request;
+                    });
                   };
                 }]
             }

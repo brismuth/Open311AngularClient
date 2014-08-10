@@ -15,6 +15,20 @@ angular.module('open311Client.requests_utils.service', [
   });
 
   var factory = {};
+  factory.statuses = [
+    'unknown',
+    'new',
+    'open',
+    'closed',
+    'investigating',
+    'planned',
+    'in progress',
+    'fixed',
+    'fixed - user',
+    'fixed - council'
+  ];
+
+
   factory.all = function () {
     return requests;
   };
