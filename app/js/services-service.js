@@ -4,7 +4,7 @@ angular.module('open311Client.services_utils.service', [
 
 // A RESTful factory for retreiving service requests 
 .factory('services_utils', ['$http', '$q', 
-                     function ($http,   $q) {
+                   function ($http,   $q) {
 
   var baseUrl = 'http://311.zappala.org/services';
 

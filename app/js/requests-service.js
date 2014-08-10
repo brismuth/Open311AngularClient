@@ -29,7 +29,6 @@ angular.module('open311Client.requests_utils.service', [
   };
 
   factory.post = function(request) {
-    console.log(request);
     var params = {
       api_key: api_key,
       service_code: request.service_code,
@@ -43,7 +42,7 @@ angular.module('open311Client.requests_utils.service', [
     if (request.lat) params.lat = request.lat;
     if (request.long) params.long = request.long;
     if (request.expected_datetime) params.expected_datetime = request.expected_datetime;
-    request.updated_datetime = new Date().toISOString();
+    if (request.status) params.status = request.status;
 
 
     var result = $q.defer();

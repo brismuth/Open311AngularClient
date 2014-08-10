@@ -57,30 +57,56 @@ angular.module('open311Client.requests_utils', [
                   }]
               },
 
-              controller: ['$scope', 'requests_utils', 'request', 'services',
-                function (  $scope,   requests_utils,   request,   services) {
+              controller: ['$scope', '$stateParams', 'requests_utils', 'request', 'services',
+                function (  $scope,   $stateParams,   requests_utils,   request,   services) {
                   for (var s = 0; s < services.length; s++) {
                     if (request.service_code == services[s].service_code) {
                       $scope.service_name = services[s].service_name;
                     }
                   }
 
+                  $scope.statuses = [
+                    'unknown',
+                    'new',
+                    'open',
+                    'closed',
+                    'investigating',
+                    'planned',
+                    'in progress',
+                    'fixed',
+                    'fixed - user',
+                    'fixed - council'
+                  ];
+
+                  // we need to send it as the string, but they send it to us as the key for some reason.
+                  request.status = $scope.statuses[request.status];
                   $scope.request = request;
 
-                  $scope.update = function(request) {
+                  console.log(request);
+
+
+                  // date pickers
+                  $scope.today = new Date();
+                  $scope.open = function($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    $scope.opened = true;
+                  };
+                  // end date pickers
+
+                  $scope.update = function(request, includeAdminSection) {
                     request.expected_datetime = new Date().toISOString();
                     var result = requests_utils.post(request);
                     result.then(function(requestID) {
-                      alert('Saved successfully!', requestID);
+                      console.log("Saved");
+                      $stateParams.hint = 'Saved successfully! ' + new Date();
                     });
                   };
-                }]
-            },
 
-            'hint@': {
-              templateProvider: ['$stateParams',
-                function (        $stateParams) {
-                  return 'Your request has been submitted. You may fill out more details or you may now close your browser.';
+                  $scope.reset = function() {
+                    console.log($stateParams);
+                  };
                 }]
             }
           }

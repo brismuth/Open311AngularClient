@@ -50,6 +50,7 @@ angular.module('open311Client', [
 
                   $scope.create = function(request) {
                     request.requested_datetime = new Date().toISOString();
+                    request.expected_datetime = new Date(new Date().getTime() + 24 * 60 * 60 * 1000); // respond in 24 hours
                     request.status = 'new';
 
                     var result = requests_utils.post(request);

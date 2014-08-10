@@ -2,27 +2,29 @@
 
 <form name="create-form"  class="form-horizontal">
   <div class="form-group">
-    <label for="inputServiceCode" class="control-label col-xs-2">Request Type</label>
-    <div class="col-xs-2">
-      <select class="form-control" ng-model="request.service_code" id="inputServiceCode" name="ServiceCode">
+    <label for="inputServiceCode" class="control-label col-sm-2">Request Type</label>
+    <div class="col-sm-5">
+      <select class="form-control" ng-model="request.service_code" id="inputServiceCode">
         <option ng-repeat="service in services" value="{{service.service_code}}">
           {{service.service_name}}
         </option>
       </select>
     </div>
-    <label for="inputAddress" class="control-label col-xs-1">Address</label>
-    <div class="col-xs-5">
-      <input class="form-control" id="inputAddress" placeholder="Address" ng-model="request.address" name="address">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress" class="control-label col-sm-2">Address</label>
+    <div class="col-sm-5">
+      <input class="form-control" id="inputAddress" placeholder="Address" ng-model="request.address">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputDescription" class="control-label col-xs-2">Description</label>
-    <div class="col-xs-8">
-      <input class="form-control" id="inputDescription" placeholder="Brief Description" ng-model="request.description" name="description">
+    <label for="inputDescription" class="control-label col-sm-2">Description</label>
+    <div class="col-sm-5">
+      <input class="form-control" id="inputDescription" placeholder="Brief Description" ng-model="request.description">
     </div>
   </div>
  	<div class="form-group">
-    <div class="col-xs-offset-2 col-xs-2">
+    <div class="col-sm-offset-2 col-sm-2">
       <button ng-click="create(request)" type="submit" class="btn btn-primary" >Create</button>
     </div>
   </div>
