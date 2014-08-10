@@ -1,6 +1,7 @@
 angular.module('open311Client.requests_utils', [
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angularFileUpload'
 ])
   
 .config(
@@ -57,8 +58,8 @@ angular.module('open311Client.requests_utils', [
                   }]
               },
 
-              controller: ['$scope', '$stateParams', 'requests_utils', 'request', 'services',
-                function (  $scope,   $stateParams,   requests_utils,   request,   services) {
+              controller: ['$scope', '$stateParams', '$upload', 'requests_utils', 'request', 'services',
+                function (  $scope,   $stateParams,   $upload,   requests_utils,   request,   services) {
                   for (var s = 0; s < services.length; s++) {
                     if (request.service_code == services[s].service_code) {
                       $scope.service_name = services[s].service_name;
@@ -82,9 +83,6 @@ angular.module('open311Client.requests_utils', [
                   request.status = $scope.statuses[request.status];
                   $scope.request = request;
 
-                  console.log(request);
-
-
                   // date pickers
                   $scope.today = new Date();
                   $scope.open = function($event) {
@@ -94,6 +92,25 @@ angular.module('open311Client.requests_utils', [
                     $scope.opened = true;
                   };
                   // end date pickers
+
+                  // image upload
+                  $scope.onFileSelect = function($files) {
+                    var file = $files[0];
+
+                    $scope.upload = $upload.upload({
+                      url: 'https://api.imgur.com/3/image',
+                      method: 'POST',
+                      headers: {
+                        Authorization: 'Client-ID b66f80f35cf0e1f'
+                      },
+                      data: {
+                        image: file, 
+                      },
+                    }).success(function(data, status, headers, config) {
+                      request.media_url = data.data.link;
+                    });
+                  };
+                  // end image upload
 
                   $scope.update = function(request, includeAdminSection) {
                     request.expected_datetime = new Date().toISOString();

@@ -6,3 +6,8 @@
 #AdminSection {
 
 }
+
+#UploadedImage {
+	max-width: 400px;
+	max-height: 400px;
+}
