@@ -69,6 +69,12 @@ angular.module('open311Client', [
           url: '/about',
           template: '<p class="lead">Cedar Hills Issue Tracking</p>' +
                     '<p>You can use this web application to make service request to the city of Cedar Hills.</p>'
+        })
+
+        .state('contact', {
+          title: 'Contact Us',
+          url: '/contact-us',
+          templateUrl: 'app/templates/contact.html'
         });
     }
   ]

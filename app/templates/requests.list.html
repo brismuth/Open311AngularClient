@@ -19,8 +19,8 @@
 				<span class="glyphicon glyphicon-map-marker"></span>
 					<a ui-sref="requests.detail({requestId:request.service_request_id})" style="font-weight:bold;">
 					<span style="font-weight:bold;">{{request.service_name}}</span> —
-					<span style="font-weight:bold;">Description:</span>
-					<span ng-if="request.description" style="font-weight:normal;">{{request.description}}</span> —
+					<span ng-if="request.description" style="font-weight:bold;">Description:</span>
+					<span ng-if="request.description" style="font-weight:normal;">{{request.description}} —</span>
 					<span style="font-weight:bold;">Location:</span> 
 					<span ng-if="request.address" style="font-weight:normal;">{{request.address}}</span>
 					<span ng-if="request.lat" style="font-weight:normal;">Latitude: {{request.lat}}</span>
