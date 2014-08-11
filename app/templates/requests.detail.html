@@ -2,6 +2,8 @@
 
 <button type="submit" ui-sref="requests.list" class="btn btn-info" style="margin:10px;">Back to recent requests</button>
 
+ <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
 <form name="request-form" role="form" class="form-horizontal">
   <div id="UserSection">  
     <h2 class="col-md-12">User Area</h2>
@@ -23,13 +25,13 @@
         <textarea class="form-control" id="inputAddress" placeholder="Address" ng-model="request.address"></textarea>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-show="request.lat && request.long">
       <label for="inputLat" class="control-label col-sm-2">Latitude</label>
       <div class="col-sm-3">
         <input class="form-control" id="inputLat" placeholder="Latitude" ng-model="request.lat">
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-show="request.lat && request.long">
       <label for="inputLong" class="control-label col-sm-2">Longitude</label>
       <div class="col-sm-3">
         <input class="form-control" id="inputLong" placeholder="Longitude" ng-model="request.long">
@@ -62,25 +64,25 @@
     <h2 class="col-md-12">Admins Only Past this Point</h2>
     <div class="form-group">
       <label for="inputStatus" class="control-label col-sm-2">Status</label>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         <select class="form-control" id="inputStatus" ng-model="request.status" ng-options="status for status in statuses"></select>
       </div>
     </div>
     <div class="form-group">
       <label for="inputRequestedDatetime" class="control-label col-sm-2">Date Requested</label>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         <input class="form-control" id="inputRequestedDatetime" disabled value="{{request.requested_datetime | date:'M/dd/yyyy h:mm a'}}"> 
       </div>
     </div>
     <div class="form-group">
       <label for="inputUpdatedDatetime" class="control-label col-sm-2">Last Updated</label>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         <input class="form-control" id="inputUpdatedDatetime" disabled value="{{request.updated_datetime | date:'M/dd/yyyy h:mm a'}}"> 
       </div>
     </div>
     <div class="form-group">
       <label for="inputExpectedDatetime" class="control-label col-sm-2">Date Expected</label>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         <p class="input-group">
           <input type="text" class="form-control" datepicker-popup ng-model="request.expected_datetime" is-open="opened" ng-required="true" close-text="Close" id="inputExpectedDatetime"/>
           <span class="input-group-btn">

@@ -21,12 +21,25 @@ angular.module('open311Client.requests_utils', [
             recentRequests: ['requests_utils',
               function(       requests_utils){
                 return requests_utils.all();
+              }],
+            services: ['services_utils',
+              function( services_utils){
+                return services_utils.all();
               }]
           },
 
-          controller: ['$scope', '$state', 'recentRequests',
-            function (  $scope,   $state,   recentRequests) {
+          controller: ['$scope', '$state', 'recentRequests', 'services',
+            function (  $scope,   $state,   recentRequests,   services) {
               $scope.recentRequests = recentRequests;
+
+              for (var i = 0; i < recentRequests.length; i++) {
+                var request = $scope.recentRequests[i];
+                for (var s = 0; s < services.length; s++) {
+                  if (request.service_code == services[s].service_code) {
+                    request.service_name = services[s].service_name;
+                  }
+                }
+              }
             }]
         })
 
@@ -99,20 +112,25 @@ angular.module('open311Client.requests_utils', [
                   };
                   // end image upload
 
+                  $scope.alerts = [];
+                  $scope.closeAlert = function(index) {
+                    $scope.alerts.splice(index, 1);
+                  };
+
+
                   $scope.update = function(request, includeAdminSection) {
+                    request.expected_datetime = new Date(request.expected_datetime).toISOString();
+
                     // we'll ignore these fields
                     if (!includeAdminSection) {
                       delete request.status;
                       delete request.expected_datetime;
                     }
 
-                    // format it for the server
-                    request.expected_datetime = new Date(request.expected_datetime).toISOString();
-
                     var result = requests_utils.post(request);
                     result.then(function(requestID) {
                       $scope.reset(); // now that the data is uploaded
-                      $stateParams.hint = 'Saved successfully! ' + new Date();
+                      $scope.alerts.push({type: "success", msg: 'Saved successfully!'});
                     });
                   };
 
