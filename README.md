@@ -1,4 +1,4 @@
-Note: this was built as a student project at BYU
+*Note: this was built as a student project at BYU*
 
 Open311AngularClient
 ====================
